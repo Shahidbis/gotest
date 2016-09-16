@@ -7,10 +7,15 @@ type Salutation struct  {
 	Greeting string
 }
 
+func (salutation *Salutation) Rename(newName string){
+	salutation.Name = newName
+}
+type Saluations []Salutation
+
 type Printer func(string)()
 
-func Greet(salutation []Salutation, do Printer, isFormal bool, times int) {
-	for _, s := range salutation {
+func (salutations Saluations) Greet(do Printer, isFormal bool, times int) {
+	for _, s := range salutations {
 		message, alternate := CreateMessage(s.Name, s.Greeting)
 
 		if prefix := GetPrefix(s.Name); isFormal {
