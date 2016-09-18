@@ -7,9 +7,23 @@ type Salutation struct  {
 	Greeting string
 }
 
+type Renamable interface {
+	Rename(newName string)
+}
+
+
 func (salutation *Salutation) Rename(newName string){
 	salutation.Name = newName
 }
+
+func (salutation *Salutation) Write(p []byte) (n int, err error) {
+	s := string(p)
+	salutation.Rename(s)
+	n = len(s)
+	err = nil
+	return
+}
+
 type Saluations []Salutation
 
 type Printer func(string)()
